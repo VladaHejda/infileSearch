@@ -1,7 +1,5 @@
 <?php
 
-//include_once 'functions.php';
-
 function preg_build($exp, $modifiers = '')
 {
 	$delimiters = '/#~=-_!%&:;`<>@';
@@ -21,14 +19,14 @@ function search ($what, $where, $mime_limit_or_filename_regexp = false, $case_se
 	$r = array();
 	$found = 0;
 	$fn_name = __FUNCTION__;
-	
+
 	if (!$is_regular_expression AND !$case_sensitive) {
 		$what = mb_strtolower ($what, $charset);
 	}
 	if (preg_match('#/\\\\$#', $where)) {
 		$where = substr ($where, 0, -1);
 	}
-	
+
 	$handle = opendir ($where);
 	while ($now = readdir ($handle)) {
 		if (($now === '.') OR ($now === '..')) {
