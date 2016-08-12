@@ -161,7 +161,7 @@ $sub_checked = $sub_checked ? ' checked="checked"' : '';
 $filelimit_type = isset($_POST['filelimit_type']) ? $_POST['filelimit_type'] : 1;
 $filelimit = isset($_POST['filelimit']) ? htmlspecialchars($_POST['filelimit']) : 'txt';
 $size = isset($_POST['size']) ? htmlspecialchars($_POST['size']) : '1 000 000';
-$count = isset($_POST['count']) ? htmlspecialchars($_POST['count']) : '20';
+$count = isset($_POST['count']) ? htmlspecialchars($_POST['count']) : '100';
 $charset = isset($_POST['charset']) ? htmlspecialchars($_POST['charset']) : 'utf-8';
 $text_result = isset($_POST['text-result']) ? (bool) $_POST['text-result'] : FALSE;
 $text_result_checked = $text_result ? ' checked="checked"' : '';
