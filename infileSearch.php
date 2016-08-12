@@ -163,6 +163,8 @@ $filelimit = isset($_POST['filelimit']) ? htmlspecialchars($_POST['filelimit']) 
 $size = isset($_POST['size']) ? htmlspecialchars($_POST['size']) : '1 000 000';
 $count = isset($_POST['count']) ? htmlspecialchars($_POST['count']) : '20';
 $charset = isset($_POST['charset']) ? htmlspecialchars($_POST['charset']) : 'utf-8';
+$text_result = isset($_POST['text-result']) ? (bool) $_POST['text-result'] : FALSE;
+$text_result_checked = $text_result ? ' checked="checked"' : '';
 
 ?>
 <!doctype html>
@@ -189,17 +191,22 @@ if (isset($results)) {
 
 	} else {
 		echo '<h2 style="color:#090;">VÝSLEDKY</h2>' . "\n";
-		echo '<ul style="color:#009;font-weight:bold;">' . "\n";
+		echo $text_result ? ('<textarea cols="150" rows="50">') : ('<ul style="color:#009;font-weight:bold;">' . "\n");
 		foreach ($results as $n => $result) {
 			++$n;
-			echo "\t" . '<li style="margin-top: 10px;"><label><strong>' . $n . '.</strong> <input type="checkbox"></label>'
-				. '<input type="text" size="150" readonly="readonly" onclick="this.select();" value="' . $result . '"></li>' . "\n";
+			if ($text_result) {
+				echo $result . "\n";
+			} else {
+				echo "\t" . '<li style="margin-top: 10px;"><label><strong>' . $n . '.</strong> <input type="checkbox"></label>'
+					. '<input type="text" size="150" readonly="readonly" onclick="this.select();" value="' . $result . '"></li>' . "\n";
+			}
 		}
-		echo "</ul>\n\n";
+		echo $text_result ? ('</textarea>') : ( "</ul>");
 	}
 }
 
 ?>
+
 <form method="post">
 	<p>
 		<label>Regulární výraz (bez delimiterů)
@@ -219,6 +226,7 @@ if (isset($results)) {
 	<p><label>Max. velikost prohledávaného souboru: <input type="text" size="15" name="size" value="<?=$size;?>"> B</label></p>
 	<p><label>Max. počet nálezů (prázdné = neomezeně): <input type="text" size="5" name="count" value="<?=$count;?>"></label></p>
 	<p><label>Kódování souborů (prázdné = utf-8): <input type="text" size="10" name="charset" value="<?=$charset;?>"></label></p>
+	<p><label>Výsledek jako text: <input type="checkbox" value="1" name="text-result"<?=$text_result_checked;?>></label></p>
 	<p><input type="submit" name="search" value="HLEDEJ"></p>
 </form>
 </body>
